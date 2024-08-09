@@ -1465,7 +1465,83 @@ function library:Init(key)
             return ButtonFunctions
         end
         --
-
+        function library:CreatePlayerDropdown(text, callback)
+            local dropdownContainer = Instance.new("Frame")
+            dropdownContainer.Size = UDim2.new(1, 0, 0, 60)
+            dropdownContainer.BackgroundTransparency = 1
+            dropdownContainer.Parent = page
+        
+            local dropdownLabel = Instance.new("TextLabel")
+            dropdownLabel.Size = UDim2.new(1, 0, 0, 20)
+            dropdownLabel.BackgroundTransparency = 1
+            dropdownLabel.Text = text
+            dropdownLabel.TextColor3 = Color3.new(1, 1, 1)
+            dropdownLabel.TextXAlignment = Enum.TextXAlignment.Left
+            dropdownLabel.Parent = dropdownContainer
+        
+            local dropdownButton = Instance.new("TextButton")
+            dropdownButton.Size = UDim2.new(1, 0, 0, 30)
+            dropdownButton.Position = UDim2.new(0, 0, 0, 25)
+            dropdownButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+            dropdownButton.Text = "Select a player"
+            dropdownButton.TextColor3 = Color3.new(1, 1, 1)
+            dropdownButton.Parent = dropdownContainer
+        
+            local optionsList = Instance.new("ScrollingFrame")
+            optionsList.Size = UDim2.new(1, 0, 0, 150)
+            optionsList.Position = UDim2.new(0, 0, 1, 5)
+            optionsList.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+            optionsList.Visible = false
+            optionsList.ZIndex = 10
+            optionsList.Parent = dropdownContainer
+        
+            local listLayout = Instance.new("UIListLayout")
+            listLayout.Parent = optionsList
+        
+            local function updatePlayerList()
+                for _, child in pairs(optionsList:GetChildren()) do
+                    if child:IsA("TextButton") then
+                        child:Destroy()
+                    end
+                end
+        
+                for _, player in ipairs(Players:GetPlayers()) do
+                    local optionButton = Instance.new("TextButton")
+                    optionButton.Size = UDim2.new(1, 0, 0, 30)
+                    optionButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+                    optionButton.Text = player.Name
+                    optionButton.TextColor3 = Color3.new(1, 1, 1)
+                    optionButton.Parent = optionsList
+                    optionButton.ZIndex = 11
+        
+                    optionButton.MouseButton1Click:Connect(function()
+                        dropdownButton.Text = player.Name
+                        optionsList.Visible = false
+                        if callback then
+                            callback(player)
+                        end
+                    end)
+                end
+        
+                optionsList.CanvasSize = UDim2.new(0, 0, 0, listLayout.AbsoluteContentSize.Y)
+            end
+        
+            dropdownButton.MouseButton1Click:Connect(function()
+                optionsList.Visible = not optionsList.Visible
+                if optionsList.Visible then
+                    updatePlayerList()
+                end
+            end)
+        
+            -- Update player list when players join or leave
+            Players.PlayerAdded:Connect(updatePlayerList)
+            Players.PlayerRemoving:Connect(updatePlayerList)
+        
+            -- Initial update of the player list
+            updatePlayerList()
+        
+            return dropdownContainer
+        end
         function Components:NewSection(text)
             text = text or "section"
 
