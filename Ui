@@ -1,4 +1,25 @@
 --// CUSTOM DRAWING
+
+local drawing = {} do
+    local services = setmetatable({}, {
+        __index = function(self, key)
+            if key == "InputService" then
+                key = "UserInputService"
+            end
+            
+            if not rawget(self, key) then
+                local service = game:GetService(key)
+                rawset(self, service, service)
+    
+                return service
+            end
+        
+            return rawget(self, key)
+        end
+    })
+
+    -- taken from Nevermore Engine https://github.com/Quenty/NevermoreEngine/tree/main/src
+
     local HttpService = game:GetService("HttpService")
 
     local ENABLE_TRACEBACK = false
