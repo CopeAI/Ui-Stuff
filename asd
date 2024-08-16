@@ -223,6 +223,7 @@ function InsideTab:CreateDropdown(text, list, callback)
     local TextButton = Instance.new("TextButton")
     local TextButton_Roundify_2px_2 = Instance.new("ImageLabel")
     local DropdownContainer = Instance.new("ImageLabel")
+    local ScrollingFrame = Instance.new("ScrollingFrame")
     local UIListLayout_2 = Instance.new("UIListLayout")
 
     Dropdown.Name = "Dropdown"
@@ -275,10 +276,19 @@ function InsideTab:CreateDropdown(text, list, callback)
         end
     end)
 
-    local BodyYSize = #list * 27
+    ScrollingFrame.Name = "ScrollingFrame"
+    ScrollingFrame.Parent = DropdownContainer
+    ScrollingFrame.Active = true
+    ScrollingFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    ScrollingFrame.BackgroundTransparency = 1.000
+    ScrollingFrame.BorderSizePixel = 0
+    ScrollingFrame.Size = UDim2.new(1, 0, 1, 0)
+    ScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, #list * 27)
+    ScrollingFrame.ScrollBarThickness = 6
+
     for i, v in pairs(list) do
         local TextButton_2 = Instance.new("TextButton")
-        TextButton_2.Parent = DropdownContainer
+        TextButton_2.Parent = ScrollingFrame
         TextButton_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
         TextButton_2.BackgroundTransparency = 1.000
         TextButton_2.Size = UDim2.new(0, 197, 0, 27)
@@ -301,7 +311,7 @@ function InsideTab:CreateDropdown(text, list, callback)
     DropdownContainer.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     DropdownContainer.BackgroundTransparency = 1.000
     DropdownContainer.Position = UDim2.new(1.46359456, 0, 0, 0)
-    DropdownContainer.Size = UDim2.new(0, 197, 0, BodyYSize)
+    DropdownContainer.Size = UDim2.new(0, 197, 0, 200) -- Adjust the height as needed
     DropdownContainer.Image = "rbxassetid://3570695787"
     DropdownContainer.ImageColor3 = theme2
     DropdownContainer.Visible = false
@@ -310,108 +320,7 @@ function InsideTab:CreateDropdown(text, list, callback)
     DropdownContainer.SliceScale = 0.020
     DropdownContainer.ZIndex = 3
 
-    UIListLayout_2.Parent = DropdownContainer
-    UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
-end
-
-function InsideTab:CreateLargeDropdown(text, list, callback)
-    local IsDropped = false
-    callback = callback or function() end
-    list = list or {}
-    text = text or "Dropdown"
-
-    local Dropdown = Instance.new("TextLabel")
-    local TextButton = Instance.new("TextButton")
-    local TextButton_Roundify_2px_2 = Instance.new("ImageLabel")
-    local DropdownContainer = Instance.new("ImageLabel")
-    local UIListLayout_2 = Instance.new("UIListLayout")
-
-    Dropdown.Name = "Dropdown"
-    Dropdown.Parent = Frame
-    Dropdown.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Dropdown.BackgroundTransparency = 1.000
-    Dropdown.Size = UDim2.new(0, 200, 0, 50)
-    Dropdown.Font = Enum.Font.SourceSansSemibold
-    Dropdown.Text = text
-    Dropdown.TextColor3 = Color3.fromRGB(255, 255, 255)
-    Dropdown.TextSize = 14.000
-
-    TextButton.Parent = Dropdown
-    TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    TextButton.BackgroundTransparency = 1.000
-    TextButton.BorderColor3 = Color3.fromRGB(27, 42, 53)
-    TextButton.BorderSizePixel = 0
-    TextButton.Position = UDim2.new(1, 0, 0, 0)
-    TextButton.Size = UDim2.new(0, 31, 0, 27)
-    TextButton.ZIndex = 2
-    TextButton.Font = Enum.Font.SourceSansBold
-    TextButton.Text = "+"
-    TextButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-    TextButton.TextSize = 14.000
-
-    TextButton_Roundify_2px_2.Name = "TextButton_Roundify_2px"
-    TextButton_Roundify_2px_2.Parent = TextButton
-    TextButton_Roundify_2px_2.Active = true
-    TextButton_Roundify_2px_2.AnchorPoint = Vector2.new(0.5, 0.5)
-    TextButton_Roundify_2px_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    TextButton_Roundify_2px_2.BackgroundTransparency = 1.000
-    TextButton_Roundify_2px_2.Position = UDim2.new(0.5, 0, 0.5, 0)
-    TextButton_Roundify_2px_2.Selectable = true
-    TextButton_Roundify_2px_2.Size = UDim2.new(1, 0, 1, 0)
-    TextButton_Roundify_2px_2.Image = "rbxassetid://3570695787"
-    TextButton_Roundify_2px_2.ImageColor3 = theme2
-    TextButton_Roundify_2px_2.ScaleType = Enum.ScaleType.Slice
-    TextButton_Roundify_2px_2.SliceCenter = Rect.new(100, 100, 100, 100)
-    TextButton_Roundify_2px_2.SliceScale = 0.020
-
-    TextButton.MouseButton1Click:Connect(function()
-        if not IsDropped then
-            IsDropped = true
-            TextButton.TextColor3 = theme3
-            DropdownContainer.Visible = true
-        else
-            IsDropped = false
-            TextButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-            DropdownContainer.Visible = false
-        end
-    end)
-
-    local BodyYSize = math.min(#list, 50) * 27
-    for i, v in pairs(list) do
-        local TextButton_2 = Instance.new("TextButton")
-        TextButton_2.Parent = DropdownContainer
-        TextButton_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-        TextButton_2.BackgroundTransparency = 1.000
-        TextButton_2.Size = UDim2.new(0, 197, 0, 27)
-        TextButton_2.Font = Enum.Font.SourceSansSemibold
-        TextButton_2.TextColor3 = Color3.fromRGB(255, 255, 255)
-        TextButton_2.Text = v
-        TextButton_2.TextSize = 14.000
-        TextButton_2.ZIndex = 4
-
-        TextButton_2.MouseButton1Click:Connect(function()
-            Dropdown.Text = v
-            callback(v)
-            IsDropped = false
-            DropdownContainer.Visible = false
-        end)
-    end
-
-    DropdownContainer.Name = "DropdownContainer"
-    DropdownContainer.Parent = TextButton
-    DropdownContainer.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    DropdownContainer.BackgroundTransparency = 1.000
-    DropdownContainer.Position = UDim2.new(1.46359456, 0, 0, 0)
-    DropdownContainer.Size = UDim2.new(0, 197, 0, BodyYSize)
-    DropdownContainer.Image = "rbxassetid://3570695787"
-    DropdownContainer.ImageColor3 = theme2
-    DropdownContainer.Visible = false
-    DropdownContainer.ScaleType = Enum.ScaleType.Slice
-    DropdownContainer.SliceCenter = Rect.new(100, 100, 100, 100)
-    DropdownContainer.SliceScale = 0.020
-    DropdownContainer.ZIndex = 3
-
-    UIListLayout_2.Parent = DropdownContainer
+    UIListLayout_2.Parent = ScrollingFrame
     UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
 end
 
