@@ -1,3 +1,147 @@
+-- // UI LIBRARY
+
+local services = setmetatable({}, {
+    __index = function(_, k)
+        k = (k == "InputService" and "UserInputService") or k
+        return game:GetService(k)
+    end
+})
+
+local client = services.Players.LocalPlayer
+
+local utility = {}
+
+function utility.dragify(object, dragoutline)
+    local start, objectposition, dragging, currentpos
+
+    object.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = true
+            start = input.Position
+            dragoutline.Visible = true
+            objectposition = object.Position
+        end
+    end)
+
+    utility.connect(services.InputService.InputChanged, function(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement and dragging then
+            currentpos = UDim2.new(objectposition.X.Scale, objectposition.X.Offset + (input.Position - start).X, objectposition.Y.Scale, objectposition.Y.Offset + (input.Position - start).Y)
+            dragoutline.Position = currentpos
+        end
+    end)
+
+    utility.connect(services.InputService.InputEnded, function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 and dragging then 
+            dragging = false
+            dragoutline.Visible = false
+            object.Position = currentpos
+        end
+    end)
+end 
+
+function utility.textlength(str, font, fontsize)
+    local text = Drawing.new("Text")
+    text.Text = str
+    text.Font = font 
+    text.Size = fontsize
+
+    local textbounds = text.TextBounds
+    text:Remove()
+
+    return textbounds
+end
+
+function utility.getcenter(sizeX, sizeY)
+    return UDim2.new(0.5, -(sizeX / 2), 0.5, -(sizeY / 2))
+end
+
+function utility.table(tbl, usemt)
+    tbl = tbl or {}
+
+    local oldtbl = table.clone(tbl)
+    table.clear(tbl)
+
+    for i, v in next, oldtbl do
+        if type(i) == "string" then
+            tbl[i:lower()] = v
+        else
+            tbl[i] = v
+        end
+    end
+
+    if usemt == true then
+        setmetatable(tbl, {
+            __index = function(t, k)
+                return rawget(t, k:lower()) or rawget(t, k)
+            end,
+
+            __newindex = function(t, k, v)
+                if type(k) == "string" then
+                    rawset(t, k:lower(), v)
+                else
+                    rawset(t, k, v)
+                end
+            end
+        })
+    end
+
+    return tbl
+end
+
+function utility.colortotable(color)
+    local r, g, b = math.floor(color.R * 255),  math.floor(color.G * 255), math.floor(color.B * 255)
+    return {r, g, b}
+end
+
+function utility.tabletocolor(tbl)
+    return Color3.fromRGB(unpack(tbl))
+end
+
+function utility.round(number, float)
+    return float * math.floor(number / float)
+end
+
+function utility.getrgb(color)
+    local r = color.R * 255
+    local g = color.G * 255
+    local b = color.B * 255
+
+    return r, g, b
+end
+
+function utility.changecolor(color, number)
+    local r, g, b = utility.getrgb(color)
+    r, g, b = math.clamp(r + number, 0, 255), math.clamp(g + number, 0, 255), math.clamp(b + number, 0, 255)
+    return Color3.fromRGB(r, g, b)
+end
+
+local totalunnamedflags = 0
+
+function utility.nextflag()
+    totalunnamedflags = totalunnamedflags + 1
+    return string.format("%.14g", totalunnamedflags)
+end
+
+function utility.rgba(r, g, b, alpha)
+    local rgb = Color3.fromRGB(r, g, b)
+    local mt = table.clone(getrawmetatable(rgb))
+    
+    setreadonly(mt, false)
+    local old = mt.__index
+    
+    mt.__index = newcclosure(function(self, key)
+        if key:lower() == "a" then
+            return alpha
+        end
+        
+        return old(self, key)
+    end)
+    
+    setrawmetatable(rgb, mt)
+    
+    return rgb
+end
+
 local themes = {
     Default = {
         ["Accent"] = Color3.fromRGB(113, 93, 133),
