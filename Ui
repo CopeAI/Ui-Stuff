@@ -184,39 +184,6 @@ local decode = (syn and syn.crypt.base64.decode) or (crypt and crypt.base64decod
 library.gradient = decode("iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABuSURBVChTxY9BDoAgDASLGD2ReOYNPsR/+BAfroI7hibe9OYmky2wbUPIOdsXdc1f9WMwppQm+SDGBnUvomAQBH49qzhFEag25869ElzaIXDhD4JGbyoEVxUedN8FKwnfmwhucgKICc+pNB1mZhdCdhsa2ky0FAAAAABJRU5ErkJggg==")
 library.utility = utility
 
-function utility.outline(obj, color)
-    local outline = drawing:new("Square")
-    outline.Parent = obj
-    outline.Size = UDim2.new(1, 2, 1, 2)
-    outline.Position = UDim2.new(0, -1, 0, -1)
-    outline.ZIndex = obj.ZIndex - 1
-    
-    if typeof(color) == "Color3" then
-        outline.Color = color
-    else
-        outline.Color = library.theme[color]
-        themeobjects[outline] = color
-    end
-
-    outline.Parent = obj
-    outline.Filled = true
-    outline.Thickness = 0
-
-    return outline
-end
-
-function utility.changeobjecttheme(object, color)
-    themeobjects[object] = color
-    object.Color = library.theme[color]
-end
-
-function utility.connect(signal, callback)
-    local connection = signal:Connect(callback)
-    table.insert(library.connections, connection)
-
-    return connection
-end
-
 function utility.disconnect(connection)
     local index = table.find(library.connections, connection)
     connection:Disconnect()
