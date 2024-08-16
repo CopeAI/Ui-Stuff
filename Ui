@@ -1,4 +1,3 @@
-local library = utility.table({theme = table.clone(themes.Default), folder = "vozoiduilib", extension = "vozoid", flags = {}, open = true, keybind = Enum.KeyCode.RightShift, mousestate = services.InputService.MouseIconEnabled, cursor = nil, holder = nil, connections = {}}, true)
 library.utility = utility
 
 function utility.outline(obj, color)
