@@ -205,21 +205,6 @@ function utility.outline(obj, color)
     return outline
 end
 
-function utility.create(class, properties)
-    local obj = drawing:new(class)
-
-    for prop, v in next, properties do
-        if prop == "Theme" then
-            themeobjects[obj] = v
-            obj.Color = library.theme[v]
-        else
-            obj[prop] = v
-        end
-    end
-    
-    return obj
-end
-
 function utility.changeobjecttheme(object, color)
     themeobjects[object] = color
     object.Color = library.theme[color]
