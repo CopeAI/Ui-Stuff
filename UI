@@ -352,12 +352,13 @@ function InsideTab:CreateSlider(text, minvalue, maxvalue, defaultValue, callback
     Slider.Text = text
     Slider.TextColor3 = Color3.fromRGB(255, 255, 255)
     Slider.TextSize = 14.000
+    Slider.TextXAlignment = Enum.TextXAlignment.Left
     
     Frame_3.Name = "Frame"
     Frame_3.Parent = Slider
     Frame_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     Frame_3.BackgroundTransparency = 1.000
-    Frame_3.Position = UDim2.new(1, 0, 0.395000011, 0)
+    Frame_3.Position = UDim2.new(0, 0, 0.7, 0)
     Frame_3.Size = UDim2.new(0, 148, 0, 8)
     Frame_3.Image = "rbxassetid://3570695787"
     Frame_3.ImageColor3 = theme2
@@ -366,12 +367,11 @@ function InsideTab:CreateSlider(text, minvalue, maxvalue, defaultValue, callback
     Frame_3.SliceScale = 0.020
     
     SliderButton.Name = "SliderButton"
-    SliderButton.Parent = Slider
+    SliderButton.Parent = Frame_3
     SliderButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     SliderButton.BackgroundTransparency = 1.000
     SliderButton.BorderSizePixel = 0
-    SliderButton.Position = UDim2.new(1, 0, 0.391304344, 0)
-    SliderButton.Size = UDim2.new(0, 148, 0, 8)
+    SliderButton.Size = UDim2.new(1, 0, 1, 0)
     SliderButton.Font = Enum.Font.SourceSans
     SliderButton.Text = ""
     SliderButton.TextColor3 = Color3.fromRGB(0, 0, 0)
@@ -396,7 +396,7 @@ function InsideTab:CreateSlider(text, minvalue, maxvalue, defaultValue, callback
     SliderInner.Parent = SliderButton
     SliderInner.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     SliderInner.BackgroundTransparency = 1.000
-    SliderInner.Size = UDim2.new(0, (defaultValue - minvalue) / (maxvalue - minvalue) * 148, 0, 8)
+    SliderInner.Size = UDim2.new((defaultValue - minvalue) / (maxvalue - minvalue), 0, 1, 0)
     SliderInner.Image = "rbxassetid://3570695787"
     SliderInner.ImageColor3 = theme3
     SliderInner.ScaleType = Enum.ScaleType.Slice
@@ -407,7 +407,7 @@ function InsideTab:CreateSlider(text, minvalue, maxvalue, defaultValue, callback
     TextLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     TextLabel_2.BackgroundTransparency = 1.000
     TextLabel_2.BorderSizePixel = 2
-    TextLabel_2.Position = UDim2.new(3.10714293, 0, 0.4, 0)
+    TextLabel_2.Position = UDim2.new(0.75, 0, 0.7, 0)
     TextLabel_2.Size = UDim2.new(0, 33, 0, 7)
     TextLabel_2.Font = Enum.Font.SourceSansBold
     TextLabel_2.Text = tostring(defaultValue)
