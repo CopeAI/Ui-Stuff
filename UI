@@ -324,16 +324,17 @@ function InsideTab:CreateDropdown(text, list, callback)
     UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
 end
 
-function InsideTab:CreateSlider(text, minvalue, maxvalue, callback)
+function InsideTab:CreateSlider(text, minvalue, maxvalue, defaultValue, callback)
     text = text or "Slider"
     minvalue = minvalue or 0
     maxvalue = maxvalue or 100
+    defaultValue = defaultValue or minvalue
 
     callback = callback or function() end
 
     local mouse = game:GetService("Players").LocalPlayer:GetMouse()
     local uis = game:GetService("UserInputService")
-    local Value
+    local Value = defaultValue
 
     local Slider = Instance.new("TextLabel")
     local Frame_3 = Instance.new("ImageLabel")
@@ -395,7 +396,7 @@ function InsideTab:CreateSlider(text, minvalue, maxvalue, callback)
     SliderInner.Parent = SliderButton
     SliderInner.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     SliderInner.BackgroundTransparency = 1.000
-    SliderInner.Size = UDim2.new(0, 0, 0, 8)
+    SliderInner.Size = UDim2.new(0, (defaultValue - minvalue) / (maxvalue - minvalue) * 148, 0, 8)
     SliderInner.Image = "rbxassetid://3570695787"
     SliderInner.ImageColor3 = theme3
     SliderInner.ScaleType = Enum.ScaleType.Slice
@@ -409,38 +410,38 @@ function InsideTab:CreateSlider(text, minvalue, maxvalue, callback)
     TextLabel_2.Position = UDim2.new(3.10714293, 0, 0.4, 0)
     TextLabel_2.Size = UDim2.new(0, 33, 0, 7)
     TextLabel_2.Font = Enum.Font.SourceSansBold
-    TextLabel_2.Text = tostring(minvalue)
+    TextLabel_2.Text = tostring(defaultValue)
     TextLabel_2.TextColor3 = theme3
     TextLabel_2.TextSize = 13.000
     TextLabel_2.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
 
-SliderButton.MouseButton1Down:Connect(function()
-    Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 148) * SliderInner.AbsoluteSize.X) + tonumber(minvalue)) or 0
-    pcall(function()
-        callback(Value)
-        TextLabel_2.Text = Value
-    end)
-    SliderInner.Size = UDim2.new(0, math.clamp(mouse.X - SliderInner.AbsolutePosition.X, 0, 148), 0, 8)
-    moveconnection = mouse.Move:Connect(function()
-        Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 148) * SliderInner.AbsoluteSize.X) + tonumber(minvalue))
+    SliderButton.MouseButton1Down:Connect(function()
+        Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 148) * SliderInner.AbsoluteSize.X) + tonumber(minvalue)) or 0
         pcall(function()
             callback(Value)
             TextLabel_2.Text = Value
         end)
         SliderInner.Size = UDim2.new(0, math.clamp(mouse.X - SliderInner.AbsolutePosition.X, 0, 148), 0, 8)
-    end)
-    releaseconnection = uis.InputEnded:Connect(function(Mouse)
-        if Mouse.UserInputType == Enum.UserInputType.MouseButton1 then
+        moveconnection = mouse.Move:Connect(function()
             Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 148) * SliderInner.AbsoluteSize.X) + tonumber(minvalue))
             pcall(function()
                 callback(Value)
+                TextLabel_2.Text = Value
             end)
             SliderInner.Size = UDim2.new(0, math.clamp(mouse.X - SliderInner.AbsolutePosition.X, 0, 148), 0, 8)
-            moveconnection:Disconnect()
-            releaseconnection:Disconnect()
-        end
+        end)
+        releaseconnection = uis.InputEnded:Connect(function(Mouse)
+            if Mouse.UserInputType == Enum.UserInputType.MouseButton1 then
+                Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 148) * SliderInner.AbsoluteSize.X) + tonumber(minvalue))
+                pcall(function()
+                    callback(Value)
+                end)
+                SliderInner.Size = UDim2.new(0, math.clamp(mouse.X - SliderInner.AbsolutePosition.X, 0, 148), 0, 8)
+                moveconnection:Disconnect()
+                releaseconnection:Disconnect()
+            end
+        end)
     end)
-end)
 end
 
 function InsideTab:Show()
