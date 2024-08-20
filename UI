@@ -358,7 +358,7 @@ function InsideTab:CreateSlider(text, minvalue, maxvalue, defaultValue, callback
     Frame_3.Parent = Slider
     Frame_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     Frame_3.BackgroundTransparency = 1.000
-    Frame_3.Position = UDim2.new(1, -148, 0.7, 0) -- Adjusted position to be on the right side of the text
+    Frame_3.Position = UDim2.new(0, 200, 0.5, -4) -- Adjusted position to be on the right side of the text
     Frame_3.Size = UDim2.new(0, 148, 0, 8)
     Frame_3.Image = "rbxassetid://3570695787"
     Frame_3.ImageColor3 = theme2
@@ -407,7 +407,7 @@ function InsideTab:CreateSlider(text, minvalue, maxvalue, defaultValue, callback
     TextLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     TextLabel_2.BackgroundTransparency = 1.000
     TextLabel_2.BorderSizePixel = 2
-    TextLabel_2.Position = UDim2.new(1, -33, 0.7, 0) -- Adjusted position to be on the right side of the slider
+    TextLabel_2.Position = UDim2.new(0, 350, 0.5, -4) -- Adjusted position to be on the right side of the slider
     TextLabel_2.Size = UDim2.new(0, 33, 0, 7)
     TextLabel_2.Font = Enum.Font.SourceSansBold
     TextLabel_2.Text = tostring(defaultValue)
@@ -443,6 +443,7 @@ function InsideTab:CreateSlider(text, minvalue, maxvalue, defaultValue, callback
         end)
     end)
 end
+
 
 function InsideTab:Show()
     for i,v in next,Items:GetChildren() do
