@@ -444,6 +444,60 @@ function InsideTab:CreateSlider(text, minvalue, maxvalue, defaultValue, callback
     end)
 end
 
+function InsideTab:CreateNumberInput(text, callback)
+    local Cheat = Instance.new("TextLabel")
+    local MainCheatFrame = Instance.new("ImageLabel")
+    local NumberInput = Instance.new("TextBox")
+    
+    Cheat.Name = "Cheat"
+    Cheat.Parent = Frame
+    Cheat.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Cheat.BackgroundTransparency = 1.000
+    Cheat.Size = UDim2.new(0, 200, 0, 50)
+    Cheat.Text = text
+    Cheat.Font = Enum.Font.SourceSansSemibold
+    Cheat.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Cheat.TextSize = 14.000
+    
+    MainCheatFrame.Name = "MainCheatFrame"
+    MainCheatFrame.Parent = Cheat
+    MainCheatFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    MainCheatFrame.BackgroundTransparency = 1.000
+    MainCheatFrame.Position = UDim2.new(1, 0, 0.129999995, 0)
+    MainCheatFrame.Size = UDim2.new(0, 100, 0, 18)
+    MainCheatFrame.Image = "rbxassetid://3570695787"
+    MainCheatFrame.ImageColor3 = theme2
+    MainCheatFrame.ScaleType = Enum.ScaleType.Slice
+    MainCheatFrame.SliceCenter = Rect.new(100, 100, 100, 100)
+    MainCheatFrame.SliceScale = 0.020
+    
+    NumberInput.Parent = MainCheatFrame
+    NumberInput.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    NumberInput.BackgroundTransparency = 1.000
+    NumberInput.Size = UDim2.new(1, 0, 1, 0)
+    NumberInput.Font = Enum.Font.SourceSans
+    NumberInput.Text = ""
+    NumberInput.TextColor3 = Color3.fromRGB(0, 0, 0)
+    NumberInput.TextSize = 14.000
+    NumberInput.ZIndex = 2
+    NumberInput.ClearTextOnFocus = false
+    
+    local function validateInput()
+        local inputText = NumberInput.Text
+        local number = tonumber(inputText)
+        if number then
+            pcall(callback, number)
+        else
+            NumberInput.Text = ""
+        end
+    end
+    
+    NumberInput.FocusLost:Connect(function(enterPressed)
+        if enterPressed then
+            validateInput()
+        end
+    end)
+end
 
 function InsideTab:Show()
     for i,v in next,Items:GetChildren() do
