@@ -477,7 +477,7 @@ function InsideTab:CreateNumberInput(text, callback)
     NumberInput.Size = UDim2.new(1, 0, 1, 0)
     NumberInput.Font = Enum.Font.SourceSans
     NumberInput.Text = ""
-    NumberInput.TextColor3 = Color3.fromRGB(0, 0, 0)
+    NumberInput.TextColor3 = Color3.fromRGB(255, 255, 255)
     NumberInput.TextSize = 14.000
     NumberInput.ZIndex = 2
     NumberInput.ClearTextOnFocus = false
