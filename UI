@@ -265,9 +265,15 @@ function InsideTab:CreateDropdown(text, list, callback)
     TextButton_Roundify_2px_2.SliceScale = 0.020
 
     TextButton.MouseButton1Click:Connect(function()
-        IsDropped = not IsDropped
-        TextButton.TextColor3 = IsDropped and theme3 or Color3.fromRGB(255, 255, 255)
-        DropdownContainer.Visible = IsDropped
+        if not IsDropped then
+            IsDropped = true
+            TextButton.TextColor3 = theme3
+            DropdownContainer.Visible = true
+        else
+            IsDropped = false
+            TextButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+            DropdownContainer.Visible = false
+        end
     end)
 
     ScrollingFrame.Name = "ScrollingFrame"
@@ -280,30 +286,24 @@ function InsideTab:CreateDropdown(text, list, callback)
     ScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, #list * 27)
     ScrollingFrame.ScrollBarThickness = 6
 
-    local function updateDropdown()
-        ScrollingFrame:ClearAllChildren()
-        UIListLayout_2.Parent = ScrollingFrame
-        UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
+    for i, v in pairs(list) do
+        local TextButton_2 = Instance.new("TextButton")
+        TextButton_2.Parent = ScrollingFrame
+        TextButton_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        TextButton_2.BackgroundTransparency = 1.000
+        TextButton_2.Size = UDim2.new(0, 197, 0, 27)
+        TextButton_2.Font = Enum.Font.SourceSansSemibold
+        TextButton_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+        TextButton_2.Text = v
+        TextButton_2.TextSize = 14.000
+        TextButton_2.ZIndex = 4
 
-        for i, v in pairs(list) do
-            local TextButton_2 = Instance.new("TextButton")
-            TextButton_2.Parent = ScrollingFrame
-            TextButton_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            TextButton_2.BackgroundTransparency = 1.000
-            TextButton_2.Size = UDim2.new(0, 197, 0, 27)
-            TextButton_2.Font = Enum.Font.SourceSansSemibold
-            TextButton_2.TextColor3 = Color3.fromRGB(255, 255, 255)
-            TextButton_2.Text = v
-            TextButton_2.TextSize = 14.000
-            TextButton_2.ZIndex = 4
-
-            TextButton_2.MouseButton1Click:Connect(function()
-                Dropdown.Text = v
-                callback(v)
-                IsDropped = false
-                DropdownContainer.Visible = false
-            end)
-        end
+        TextButton_2.MouseButton1Click:Connect(function()
+            Dropdown.Text = v
+            callback(v)
+            IsDropped = false
+            DropdownContainer.Visible = false
+        end)
     end
 
     DropdownContainer.Name = "DropdownContainer"
@@ -322,29 +322,18 @@ function InsideTab:CreateDropdown(text, list, callback)
 
     UIListLayout_2.Parent = ScrollingFrame
     UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
-
-    updateDropdown()
-
-    return {
-        updateList = function(newList)
-            list = newList
-            ScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, #list * 27)
-            updateDropdown()
-        end
-    }
 end
 
 function InsideTab:CreatePlayerDropdown(text, callback)
     local list = {}
-    local dropdown = self:CreateDropdown(text, list, callback)
-
+    self:CreateDropdown(text, list, callback)
     spawn(function()
         while true do
             list = {}
             for _, player in pairs(game.Players:GetPlayers()) do
                 table.insert(list, player.Name)
             end
-            dropdown.updateList(list)
+            self:CreateDropdown(text, list, callback)
             wait(5)
         end
     end)
