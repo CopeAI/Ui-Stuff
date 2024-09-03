@@ -344,6 +344,9 @@ function InsideTab:CreatePlayerDropdown(text, callback)
             item.Size = UDim2.new(1, 0, 0, 25)
             item.Text = playerName
             item.Parent = dropdownContainer
+            item.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            item.TextColor3 = Color3.fromRGB(0, 0, 0)
+            item.TextSize = 14
             item.MouseButton1Click:Connect(function()
                 dropdown.Text = playerName
                 callback(playerName)
@@ -354,22 +357,13 @@ function InsideTab:CreatePlayerDropdown(text, callback)
     end
 
     -- Create the dropdown UI
-    dropdown = Instance.new("TextLabel")
+    dropdown = Instance.new("TextButton")
     dropdown.Size = UDim2.new(0, 200, 0, 50)
     dropdown.Text = text
     dropdown.Parent = Frame
     dropdown.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     dropdown.TextColor3 = Color3.fromRGB(0, 0, 0)
     dropdown.TextSize = 14
-
-    local toggleButton = Instance.new("TextButton")
-    toggleButton.Size = UDim2.new(0, 30, 0, 50)
-    toggleButton.Position = UDim2.new(1, 0, 0, 0)
-    toggleButton.Text = "+"
-    toggleButton.Parent = dropdown
-    toggleButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    toggleButton.TextColor3 = Color3.fromRGB(0, 0, 0)
-    toggleButton.TextSize = 14
 
     dropdownContainer = Instance.new("Frame")
     dropdownContainer.Size = UDim2.new(0, 200, 0, 150)
@@ -382,7 +376,7 @@ function InsideTab:CreatePlayerDropdown(text, callback)
     uiListLayout.Parent = dropdownContainer
     uiListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
-    toggleButton.MouseButton1Click:Connect(function()
+    dropdown.MouseButton1Click:Connect(function()
         isDropped = not isDropped
         dropdownContainer.Visible = isDropped
     end)
