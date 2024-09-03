@@ -286,6 +286,7 @@ function InsideTab:CreateDropdown(text, list, callback)
     ScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, #list * 27)
     ScrollingFrame.ScrollBarThickness = 6
 
+    -- Ensure UIListLayout is parented correctly
     UIListLayout_2.Parent = ScrollingFrame
     UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
 
