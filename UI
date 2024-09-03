@@ -286,10 +286,12 @@ function InsideTab:CreateDropdown(text, list, callback)
     ScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, #list * 27)
     ScrollingFrame.ScrollBarThickness = 6
 
+    UIListLayout_2.Parent = ScrollingFrame
+    UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
+
     local function updateDropdown()
         ScrollingFrame:ClearAllChildren()
         UIListLayout_2.Parent = ScrollingFrame
-        UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
 
         for i, v in pairs(list) do
             local TextButton_2 = Instance.new("TextButton")
@@ -325,9 +327,6 @@ function InsideTab:CreateDropdown(text, list, callback)
     DropdownContainer.SliceCenter = Rect.new(100, 100, 100, 100)
     DropdownContainer.SliceScale = 0.020
     DropdownContainer.ZIndex = 3
-
-    UIListLayout_2.Parent = ScrollingFrame
-    UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
 
     updateDropdown()
 end
