@@ -1,14 +1,12 @@
--- CREDITS TO ENKEI
-
 local coreGui = game:GetService("CoreGui")
--- objects
+
 local camera = workspace.CurrentCamera
 local drawingUI = Instance.new("ScreenGui")
 drawingUI.Name = "Drawing"
 drawingUI.IgnoreGuiInset = true
 drawingUI.DisplayOrder = 0x7fffffff
 drawingUI.Parent = coreGui
--- variables
+
 local drawingIndex = 0
 local uiStrokes = table.create(0)
 local baseDrawingObj = setmetatable({
@@ -38,7 +36,7 @@ local drawingFontsEnum = {
 	[2] = Font.fromEnum(Enum.Font.SourceSans),
 	[3] = Font.fromEnum(Enum.Font.RobotoMono),
 }
--- function
+
 local function getFontFromIndex(fontIndex: number): Font
 	return drawingFontsEnum[fontIndex]
 end
@@ -46,7 +44,7 @@ end
 local function convertTransparency(transparency: number): number
 	return math.clamp(1 - transparency, 0, 1)
 end
--- main
+
 local DrawingLib = {}
 DrawingLib.Fonts = {
 	["UI"] = 0,
