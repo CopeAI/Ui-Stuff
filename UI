@@ -499,6 +499,61 @@ function InsideTab:CreateNumberInput(text, callback)
     end)
 end
 
+function InsideTab:CreateKeybind(text, callback)
+    local KeybindLabel = Instance.new("TextLabel")
+    local MainKeybindFrame = Instance.new("ImageLabel")
+    local KeyInput = Instance.new("TextBox")
+    
+    KeybindLabel.Name = "KeybindLabel"
+    KeybindLabel.Parent = Frame
+    KeybindLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    KeybindLabel.BackgroundTransparency = 1.000
+    KeybindLabel.Size = UDim2.new(0, 200, 0, 50)
+    KeybindLabel.Text = text
+    KeybindLabel.Font = Enum.Font.SourceSansSemibold
+    KeybindLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    KeybindLabel.TextSize = 14.000
+    
+    MainKeybindFrame.Name = "MainKeybindFrame"
+    MainKeybindFrame.Parent = KeybindLabel
+    MainKeybindFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    MainKeybindFrame.BackgroundTransparency = 1.000
+    MainKeybindFrame.Position = UDim2.new(1, 0, 0.129999995, 0)
+    MainKeybindFrame.Size = UDim2.new(0, 100, 0, 18)
+    MainKeybindFrame.Image = "rbxassetid://3570695787"
+    MainKeybindFrame.ImageColor3 = theme2
+    MainKeybindFrame.ScaleType = Enum.ScaleType.Slice
+    MainKeybindFrame.SliceCenter = Rect.new(100, 100, 100, 100)
+    MainKeybindFrame.SliceScale = 0.020
+    
+    KeyInput.Parent = MainKeybindFrame
+    KeyInput.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    KeyInput.BackgroundTransparency = 1.000
+    KeyInput.Size = UDim2.new(1, 0, 1, 0)
+    KeyInput.Font = Enum.Font.SourceSans
+    KeyInput.Text = ""
+    KeyInput.TextColor3 = Color3.fromRGB(255, 255, 255)
+    KeyInput.TextSize = 14.000
+    KeyInput.ZIndex = 2
+    KeyInput.ClearTextOnFocus = false
+
+    local function validateKeyInput()
+        local inputText = KeyInput.Text
+        local keyCode = Enum.KeyCode[inputText]
+        if keyCode then
+            pcall(callback, keyCode)
+        else
+            KeyInput.Text = ""
+        end
+    end
+    
+    KeyInput.FocusLost:Connect(function(enterPressed)
+        if enterPressed then
+            validateKeyInput()
+        end
+    end)
+end
+
 function InsideTab:Show()
     for i,v in next,Items:GetChildren() do
         v.Visible = false
