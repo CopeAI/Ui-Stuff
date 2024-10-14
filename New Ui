@@ -1074,26 +1074,6 @@ function utility.nextflag()
     return string.format("%.14g", totalunnamedflags)
 end
 
-function utility.rgba(r, g, b, alpha)
-    local rgb = Color3.fromRGB(r, g, b)
-    local mt = table.clone(getrawmetatable(rgb))
-    
-    setreadonly(mt, false)
-    local old = mt.__index
-    
-    mt.__index = newcclosure(function(self, key)
-        if key:lower() == "a" then
-            return alpha
-        end
-        
-        return old(self, key)
-    end)
-    
-    setrawmetatable(rgb, mt)
-    
-    return rgb
-end
-
 local themes = {
     Default = {
         ["Accent"] = Color3.fromRGB(113, 93, 133),
@@ -2384,12 +2364,6 @@ function library.createcolorpicker(default, defaultalpha, parent, count, flag, c
             end
 
             text.Text = string.format("%s, %s, %s", math.round(hsv.R * 255), math.round(hsv.G * 255), math.round(hsv.B * 255))
-
-            if flag then 
-                library.flags[flag] = utility.rgba(hsv.r * 255, hsv.g * 255, hsv.b * 255, alpha)
-            end
-
-            callback(utility.rgba(hsv.r * 255, hsv.g * 255, hsv.b * 255, alpha))
         end
     end
 
