@@ -2769,8 +2769,6 @@ function library:Load(options)
         self.extension = extension
     end
 
-    services.InputService.MouseIconEnabled = false
-
     local holder = utility.create("Square", {
         Transparency = 0,
         ZIndex = 100,
