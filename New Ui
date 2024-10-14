@@ -1110,7 +1110,7 @@ local themes = {
 
 local themeobjects = {}
 
-local library = utility.table({theme = table.clone(themes.Default), folder = "vozoiduilib", extension = "vozoid", flags = {}, open = true, keybind = Enum.KeyCode.RightShift, mousestate = services.InputService.MouseIconEnabled, cursor = nil, holder = nil, connections = {}}, true)
+local library = utility.table({theme = table.clone(themes.Default), folder = "vozoiduilib", extension = "vozoid", flags = {}, open = true, keybind = Enum.KeyCode.RightShift, mousestate = services.InputService.MouseIconEnabled = nil, holder = nil, connections = {}})
 local decode = (syn and syn.crypt.base64.decode) or (crypt and crypt.base64decode) or base64_decode
 library.gradient = decode("iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABuSURBVChTxY9BDoAgDASLGD2ReOYNPsR/+BAfroI7hibe9OYmky2wbUPIOdsXdc1f9WMwppQm+SDGBnUvomAQBH49qzhFEag25869ElzaIXDhD4JGbyoEVxUedN8FKwnfmwhucgKICc+pNB1mZhdCdhsa2ky0FAAAAABJRU5ErkJggg==")
 library.utility = utility
@@ -1293,9 +1293,6 @@ function library:Close()
         self.holder.Visible = self.open
     end
 
-    if self.cursor then
-        self.cursor.Visible = self.open
-    end
 end
 
 function library:ChangeThemeOption(option, color)
@@ -1406,10 +1403,6 @@ function library:Unload()
 
     if self.holder then
         self.holder:Remove()
-    end
-
-    if self.cursor then
-        self.cursor:Remove()
     end
 
     if self.watermarkobject then
@@ -2776,24 +2769,7 @@ function library:Load(options)
         self.extension = extension
     end
 
-    local cursor = utility.create("Triangle", {
-        Thickness = 6,
-        Color = Color3.fromRGB(255, 255, 255),
-        ZIndex = 1000
-    })
-
-    self.cursor = cursor
-
     services.InputService.MouseIconEnabled = false
-
-    utility.connect(services.RunService.RenderStepped, function()
-        if self.open then
-            local mousepos = services.InputService:GetMouseLocation()
-            cursor.PointA = mousepos
-            cursor.PointB = mousepos + Vector2.new(6, 12)
-            cursor.PointC = mousepos + Vector2.new(6, 12)
-        end
-    end)
 
     local holder = utility.create("Square", {
         Transparency = 0,
