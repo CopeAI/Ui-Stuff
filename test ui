@@ -25,7 +25,7 @@ function Library:New(properties)
 	local firstTab = true
 
 	local GUI = Instance.new("ScreenGui")
-  env.protectgui(GUI)
+  	env.protectgui(GUI)
 	local Canvas = Instance.new("Frame")
 	local UILLCanvas = Instance.new("UIListLayout")
 	local Header = Instance.new("Frame")
