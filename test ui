@@ -1,6 +1,8 @@
 local env = getfenv()
 env.gethui = gethui or get_hidden_gui
-
+local function Hide(v)
+	v.Parent = env.gethui()
+end
 --// CUSTOM DRAWING
 
 local drawing = {} do
@@ -930,7 +932,7 @@ local drawing = {} do
                         obj.Visible = istouching(obj.Position, obj.Size, mtobjs[v].Position, mtobjs[v].Size) and objvisibles[obj] or false
                     end
                     
-                    customproperties.Parent = env.gethui()
+                    Hide(customproperties)
                     return
                 end
 
