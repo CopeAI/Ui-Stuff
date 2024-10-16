@@ -1,10 +1,6 @@
 local env = getfenv()
-env.protectgui = protect_gui or (syn and syn.protect_gui)
-local function protectGUI(guiElement)
-    if env.protectgui then
-        env.protectgui(guiElement)
-    end
-end
+env.gethui = gethui or get_hidden_gui
+
 --// CUSTOM DRAWING
 
 local drawing = {} do
@@ -934,7 +930,7 @@ local drawing = {} do
                         obj.Visible = istouching(obj.Position, obj.Size, mtobjs[v].Position, mtobjs[v].Size) and objvisibles[obj] or false
                     end
                     
-                    customproperties.Parent = v
+                    customproperties.Parent = env.gethui()
                     return
                 end
 
@@ -1154,7 +1150,7 @@ function utility.create(class, properties)
             obj[prop] = v
         end
     end
-    protectGUI(obj)
+	
     return obj
 end
 
