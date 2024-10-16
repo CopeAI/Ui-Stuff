@@ -1,3 +1,10 @@
+local env = getfenv()
+env.protectgui = protect_gui or (syn and syn.protect_gui)
+local function protectGUI(guiElement)
+    if env.protectgui then
+        env.protectgui(guiElement)
+    end
+end
 -- SUBSECTION FIX (CUTE)
 local Library = {
 	Flags = {},
@@ -11,8 +18,7 @@ local Library = {
 		Focused = Color3.fromRGB(205, 214, 244),
 	}
 }
-local env = getfenv()
-env.protectgui = protect_gui or (syn and syn.protect_gui)
+
 local function toRich(color) if typeof(color) == "Color3" then return string.format('rgb(%d, %d, %d)', color.R, color.G, color.B) end end
 
 function Library:New(properties)
@@ -25,7 +31,7 @@ function Library:New(properties)
 	local firstTab = true
 
 	local GUI = Instance.new("ScreenGui")
-  	env.protectgui(GUI)
+    protectGUI(GUI)
 	local Canvas = Instance.new("Frame")
 	local UILLCanvas = Instance.new("UIListLayout")
 	local Header = Instance.new("Frame")
