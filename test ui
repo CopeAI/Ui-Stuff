@@ -65,18 +65,23 @@ function library:Tween(...)
     tweenService:Create(...):Play()
 end
 
-function library:notify(text)
+function library:notify(duration, text)
     if playing then return end
     playing = true
     library.notifyText.Text = text
     library.notifyText.Transparency = 0
     library.notifyText.Visible = true
-    for i = 0,1,0.1 do wait()
+
+    for i = 0, 1, 0.1 do
+        wait()
         library.notifyText.Transparency = i
     end
+
+    wait(duration)
+
     spawn(function()
-        wait(3)
-        for i = 1,0,-0.1 do wait()
+        for i = 1, 0, -0.1 do
+            wait()
             library.notifyText.Transparency = i
         end
         playing = false
