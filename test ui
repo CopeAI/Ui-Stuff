@@ -8,10 +8,12 @@ local env = getfenv()
 env.gethui = gethui or get_hidden_gui
 local menu           = game:GetObjects("rbxassetid://133985474153118")[1] -- 12702460854
 local parent = env.gethui()
-local existingGui = parent:FindFirstChild(menu.Name)
-if existingGui then
-    existingGui:Destroy()
-end
+--[[
+    local existingGui = parent:FindFirstChild(menu.Name)
+    if existingGui then
+        existingGui:Destroy()
+    end
+]]
 menu.bg.Position     = UDim2.new(0.5,-menu.bg.Size.X.Offset/2,0.5,-menu.bg.Size.Y.Offset/2)
 menu.Parent          = parent
 
