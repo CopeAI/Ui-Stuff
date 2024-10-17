@@ -1,8 +1,5 @@
 local env = getfenv()
 env.gethui = gethui or get_hidden_gui
-local function Hide(v)
-	v.Parent = env.gethui()
-end
 --// CUSTOM DRAWING
 
 local drawing = {} do
@@ -504,7 +501,7 @@ local drawing = {} do
         end
 
         local customproperties = {
-            Parent = nil,
+            Parent = env.gethui(),
             AbsolutePosition = nil,
             AbsoluteSize = nil,
             ClipsDescendants = false
