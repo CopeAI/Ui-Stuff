@@ -1,5 +1,19 @@
-if game.CoreGui:FindFirstChild("RemoteSpy") then
-    game.CoreGui["RemoteSpy"]:Destroy()
+local cloneref = cloneref or function(...) return ... end
+local Game = cloneref(Game)
+local Services = setmetatable({}, {
+	__index = function(self, ind)
+		if ypcall(function()
+			cloneref(Game:FindService(ind))
+		end) then
+			return cloneref(Game:FindService(ind))
+		else
+			return nil
+		end
+	end,
+})
+--
+if Services.CoreGui:FindFirstChild("RemoteSpy") then
+    Services.CoreGui["RemoteSpy"]:Destroy()
 end
 
 -- FrontEnd // UI
@@ -58,7 +72,7 @@ local global_env = {"game", "workspace", "script", "math", "string", "table", "p
 -- Properties
 
 RemoteSpy.Name = "RemoteSpy"
-RemoteSpy.Parent = game.CoreGui
+RemoteSpy.Parent = Services.CoreGui
 
 BG.Name = "BG"
 BG.Parent = RemoteSpy
@@ -587,7 +601,7 @@ Resize.BorderColor3 = Color3.fromRGB(20,20,20)
 Resize.BorderSizePixel = 2
 Resize.Selectable = true
 
-local Mouse 		= game.Players.LocalPlayer:GetMouse()
+local Mouse 		= Services.Players.LocalPlayer:GetMouse()
 local UIS			= game:GetService("UserInputService")
 local Frame 		= BG
 local Trigger 		= Resize
@@ -599,16 +613,16 @@ Trigger.InputBegan:Connect(function(input)
   		while UIS:IsMouseButtonPressed(MouseButton) do
             if Frame.Size.X.Offset >= 900 then
 				if Frame.Size.Y.Offset >= 500 then
-					if Frame.Size.X.Offset <= game.workspace.CurrentCamera.ViewportSize.X - 300 then
-						if Frame.Size.Y.Offset <= game.workspace.CurrentCamera.ViewportSize.Y - 300 then
+					if Frame.Size.X.Offset <= Services.workspace.CurrentCamera.ViewportSize.X - 300 then
+						if Frame.Size.Y.Offset <= Services.workspace.CurrentCamera.ViewportSize.Y - 300 then
                             local delta = Vector2.new(Mouse.X,Mouse.Y) - lastMousePos
                             Frame.Size = Frame.Size + UDim2.new(0,delta.X,0,delta.Y)
                             lastMousePos = Vector2.new(Mouse.X,Mouse.Y)
                         else
-                            Frame.Size = UDim2.new(0, Frame.AbsoluteSize.X, 0, game.workspace.CurrentCamera.ViewportSize.Y - 300)
+                            Frame.Size = UDim2.new(0, Frame.AbsoluteSize.X, 0, Services.workspace.CurrentCamera.ViewportSize.Y - 300)
                         end
                     else
-                        Frame.Size = UDim2.new(0, game.workspace.CurrentCamera.ViewportSize.X - 300, 0, Frame.AbsoluteSize.Y)
+                        Frame.Size = UDim2.new(0, Services.workspace.CurrentCamera.ViewportSize.X - 300, 0, Frame.AbsoluteSize.Y)
                     end
                 else
                     Frame.Size = UDim2.new(0, Frame.AbsoluteSize.X, 0, 500)
@@ -1132,7 +1146,7 @@ Decompile.MouseButton1Down:Connect(function()
 		type(source) == "boolean" and (function() Source.Visible = false SetRemotes.Visible = false SetRemotesTab.Visible = false lvl6Frame.Visible = true dump_script("Failed to decompile...") 
 			return "" 
 		end)() 
-		or "-- SCRIPT PATH: game." .. g_caller:GetFullName() .. "\n" .. tostring(source)
+		or "-- SCRIPT PATH: Services." .. g_caller:GetFullName() .. "\n" .. tostring(source)
 	)
 end)
 
