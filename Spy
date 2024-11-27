@@ -12,13 +12,9 @@ local Services = setmetatable({}, {
 	end,
 })
 --
-if Services.CoreGui:FindFirstChild("RemoteSpy") then
-    Services.CoreGui["RemoteSpy"]:Destroy()
+if Services.CoreGui.RobloxGui:FindFirstChild("RemoteSpy") then
+    Services.CoreGui.RobloxGui["RemoteSpy"]:Destroy()
 end
-
--- FrontEnd // UI
-
--- Objects
 
 local RemoteSpy = Instance.new("ScreenGui")
 local BG = Instance.new("Frame")
@@ -72,29 +68,28 @@ local global_env = {"game", "workspace", "script", "math", "string", "table", "p
 -- Properties
 
 RemoteSpy.Name = "RemoteSpy"
-RemoteSpy.Parent = Services.CoreGui
+RemoteSpy.Parent = Services.RobloxGui
 
 BG.Name = "BG"
 BG.Parent = RemoteSpy
 BG.Active = true
 BG.BackgroundColor3 = Color3.new(0.141176, 0.141176, 0.141176)
-BG.BackgroundTransparency = 0.4
 BG.BorderColor3 = Color3.new(0.243137, 0.243137, 0.243137)
 BG.Draggable = true
 BG.Position = UDim2.new(0.5, -700, 0.5, -400)
-BG.Size = UDim2.new(0, 1100, 0, 700)
+BG.Size = UDim2.new(1, -300, 1, -200)
 BG.ClipsDescendants = true
 
 Ribbon.Name = "Ribbon"
 Ribbon.Parent = BG
-Ribbon.BackgroundColor3 = Color3.fromRGB(220,96,220)
+Ribbon.BackgroundColor3 = Color3.new(0.760784, 0.0117647, 0.317647)
 Ribbon.BorderSizePixel = 0
 Ribbon.Size = UDim2.new(1, 0, 0, 20)
 Ribbon.ZIndex = 2
 
 Hide.Name = "Hide"
 Hide.Parent = Ribbon
-Hide.BackgroundColor3 = Color3.fromRGB(220,96,220)
+Hide.BackgroundColor3 = Color3.new(1, 0, 0)
 Hide.BorderSizePixel = 0
 Hide.Position = UDim2.new(1, -40, 0, 0)
 Hide.Size = UDim2.new(0, 40, 0, 20)
@@ -107,21 +102,20 @@ Hide.TextSize = 14
 
 Title.Name = "Title"
 Title.Parent = Ribbon
-Title.BackgroundColor3 = Color3.fromRGB(220,96,220)
+Title.BackgroundColor3 = Color3.new(1, 0.0117647, 0.423529)
 Title.BorderSizePixel = 0
 Title.Position = UDim2.new(0.5, -100, 0, 0)
 Title.Size = UDim2.new(0, 200, 0, 20)
 Title.ZIndex = 3
 Title.Font = Enum.Font.SourceSansBold
 Title.FontSize = Enum.FontSize.Size14
-Title.Text = "ZerioSpy (R2S)"
+Title.Text = "Remote2Script v2"
 Title.TextColor3 = Color3.new(1, 1, 1)
 Title.TextSize = 14
 
 Remotes.Name = "Remotes"
 Remotes.Parent = BG
 Remotes.BackgroundColor3 = Color3.new(0.0784314, 0.0784314, 0.0784314)
-Remotes.BackgroundTransparency = 0.25
 Remotes.BorderColor3 = Color3.new(0.243137, 0.243137, 0.243137)
 Remotes.Position = UDim2.new(0, 10, 0, 80)
 Remotes.CanvasSize = UDim2.new(0, 0, 40, 0)
@@ -135,7 +129,6 @@ Remotes.TopImage = "rbxassetid://148970562"
 Source.Name = "Source"
 Source.Parent = BG
 Source.BackgroundColor3 = Color3.new(0.0784314, 0.0784314, 0.0784314)
-Source.BackgroundTransparency = 0.25
 Source.BorderColor3 = Color3.new(0.243137, 0.243137, 0.243137)
 Source.Position = UDim2.new(0, 270, 0, 80)
 Source.Size = UDim2.new(1, -280, 1, -90)
@@ -238,21 +231,21 @@ Last.Parent = ButtonsFrame
 Last.BackgroundColor3 = Color3.new(0.0784314, 0.0784314, 0.0784314)
 Last.BorderColor3 = Color3.new(0.384314, 0.384314, 0.384314)
 Last.Position = UDim2.new(0, 670, 0.5, -10)
-Last.Size = UDim2.new(0, 125, 0, 20)
+Last.Size = UDim2.new(0, 200, 0, 20)
 Last.ZIndex = 3
 Last.Font = Enum.Font.SourceSansBold
 Last.FontSize = Enum.FontSize.Size14
 Last.Text = ""
 Last.TextColor3 = Color3.new(1, 1, 1)
-Last.TextScaled = true
+Last.TextSize = 14
 Last.TextWrapped = true
 
 Total.Name = "Total"
 Total.Parent = ButtonsFrame
 Total.BackgroundColor3 = Color3.new(0.0784314, 0.0784314, 0.0784314)
 Total.BorderColor3 = Color3.new(0.384314, 0.384314, 0.384314)
-Total.Position = UDim2.new(0, 800, 0.5, -10)
-Total.Size = UDim2.new(0, 45, 0, 20)
+Total.Position = UDim2.new(0, 880, 0.5, -10)
+Total.Size = UDim2.new(0, 50, 0, 20)
 Total.ZIndex = 3
 Total.Font = Enum.Font.SourceSansBold
 Total.FontSize = Enum.FontSize.Size14
@@ -315,11 +308,10 @@ Icon.BackgroundTransparency = 1
 Icon.Size = UDim2.new(0, 20, 0, 20)
 Icon.ZIndex = 4
 Icon.Image = "rbxassetid://413369506"
-Icon.Position = UDim2.new(0, 3, 0, 0)
 
 RemoteName.Name = "RemoteName"
 RemoteName.Parent = RBTN
-RemoteName.BackgroundColor3 = Color3.fromRGB(220,96,220)
+RemoteName.BackgroundColor3 = Color3.new(0.713726, 0.00392157, 0.298039)
 RemoteName.BorderSizePixel = 0
 RemoteName.Position = UDim2.new(0, 30, 0, 0)
 RemoteName.Size = UDim2.new(0, 140, 0, 20)
@@ -327,12 +319,12 @@ RemoteName.ZIndex = 4
 RemoteName.Font = Enum.Font.SourceSansBold
 RemoteName.FontSize = Enum.FontSize.Size14
 RemoteName.Text = "10"
-RemoteName.TextColor3 = Color3.fromRGB(255,255,255)
+RemoteName.TextColor3 = Color3.new(0.784314, 0.784314, 0.784314)
 RemoteName.TextSize = 14
 
 ID.Name = "ID"
 ID.Parent = RBTN
-ID.BackgroundColor3 = Color3.fromRGB(196,79,196)
+ID.BackgroundColor3 = Color3.new(0.458824, 0.00392157, 0.192157)
 ID.BorderSizePixel = 0
 ID.Position = UDim2.new(1, -50, 0, 0)
 ID.Size = UDim2.new(0, 50, 0, 20)
@@ -340,7 +332,7 @@ ID.ZIndex = 4
 ID.Font = Enum.Font.SourceSansBold
 ID.FontSize = Enum.FontSize.Size14
 ID.Text = "10"
-ID.TextColor3 = Color3.fromRGB(255,255,255)
+ID.TextColor3 = Color3.new(0.784314, 0.784314, 0.784314)
 ID.TextSize = 14
 
 SBTN.Name = "SBTN"
@@ -364,7 +356,6 @@ Icon_2.BackgroundTransparency = 1
 Icon_2.Size = UDim2.new(0, 20, 0, 20)
 Icon_2.ZIndex = 4
 Icon_2.Image = "rbxassetid://413369506"
-Icon_2.Position = UDim2.new(0, -5, 0, 0)
 
 RemoteName_2.Name = "RemoteName"
 RemoteName_2.Parent = SBTN
@@ -517,8 +508,8 @@ Enabled.Parent = SBTN
 Enabled.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 Enabled.BorderSizePixel = 1
 Enabled.BorderColor3 = Color3.fromRGB(30, 100, 30)
-Enabled.Position = UDim2.new(0, 171.5, 0, 0)
-Enabled.Size = UDim2.new(1, -171.5, 1, 0)
+Enabled.Position = UDim2.new(0, 210, 0, 0)
+Enabled.Size = UDim2.new(0, 100, 1, 0)
 Enabled.ZIndex = 4
 Enabled.Font = Enum.Font.SourceSansBold
 Enabled.FontSize = Enum.FontSize.Size14
@@ -528,7 +519,7 @@ Enabled.TextSize = 14
 
 FullScreen.Name = "FullScreen"
 FullScreen.Parent = Ribbon
-FullScreen.BackgroundColor3 = Color3.fromRGB(220,96,220)
+FullScreen.BackgroundColor3 = Color3.new(1, 0, 0)
 FullScreen.BorderSizePixel = 0
 FullScreen.Position = UDim2.new(1, -90, 0, 0)
 FullScreen.Size = UDim2.new(0, 40, 0, 20)
@@ -589,56 +580,10 @@ Search.Text = "[SEARCH]"
 Search.TextColor3 = Color3.new(0.784314, 0.784314, 0.784314)
 Search.TextSize = 14
 
-local Resize = Instance.new("TextButton", BG)
-Resize.Size = UDim2.new(0,20,0,20)
-Resize.Position = UDim2.new(1,-20,1,-20)
-Resize.ZIndex = 50
-Resize.BackgroundColor3 = Color3.fromRGB(30,30,30)
-Resize.BackgroundTransparency = 0.3
-Resize.TextTransparency = 1
-Resize.Text = ""
-Resize.BorderColor3 = Color3.fromRGB(20,20,20)
-Resize.BorderSizePixel = 2
-Resize.Selectable = true
-
-local Mouse 		= Services.Players.LocalPlayer:GetMouse()
-local UIS			= game:GetService("UserInputService")
-local Frame 		= BG
-local Trigger 		= Resize
-local MouseButton 	= Enum.UserInputType.MouseButton1
-
-Trigger.InputBegan:Connect(function(input)
-	 if input.UserInputType == MouseButton then
-  		local lastMousePos = Vector2.new(Mouse.X,Mouse.Y)
-  		while UIS:IsMouseButtonPressed(MouseButton) do
-            if Frame.Size.X.Offset >= 900 then
-				if Frame.Size.Y.Offset >= 500 then
-					if Frame.Size.X.Offset <= Services.workspace.CurrentCamera.ViewportSize.X - 300 then
-						if Frame.Size.Y.Offset <= Services.workspace.CurrentCamera.ViewportSize.Y - 300 then
-                            local delta = Vector2.new(Mouse.X,Mouse.Y) - lastMousePos
-                            Frame.Size = Frame.Size + UDim2.new(0,delta.X,0,delta.Y)
-                            lastMousePos = Vector2.new(Mouse.X,Mouse.Y)
-                        else
-                            Frame.Size = UDim2.new(0, Frame.AbsoluteSize.X, 0, Services.workspace.CurrentCamera.ViewportSize.Y - 300)
-                        end
-                    else
-                        Frame.Size = UDim2.new(0, Services.workspace.CurrentCamera.ViewportSize.X - 300, 0, Frame.AbsoluteSize.Y)
-                    end
-                else
-                    Frame.Size = UDim2.new(0, Frame.AbsoluteSize.X, 0, 500)
-                end
-            else
-                Frame.Size = UDim2.new(0, 900, 0, Frame.AbsoluteSize.Y)
-            end
-  		 	wait()
- 		end
- 	end
-end)
-
 -- FrontEnd-Backend // UI Functions
 
 local HasSpecial = function(string)
-	return (string:match("%c") or string:match("%s") or string:match("%p")) ~= nil
+    return (string:match("%c") or string:match("%s") or string:match("%p") or tonumber(string:sub(1,1))) ~= nil
 end
 
 local GetPath = function(Instance)
@@ -646,7 +591,7 @@ local GetPath = function(Instance)
 	local string = {}
 	local temp = {}
 	local error = false
-
+	
 	while Obj ~= game do
 		if Obj == nil then
 			error = true
@@ -655,9 +600,9 @@ local GetPath = function(Instance)
 		table.insert(temp, Obj.Parent == game and Obj.ClassName or tostring(Obj))
 		Obj = Obj.Parent
 	end
-
+	
 	table.insert(string, "game:GetService(\"" .. temp[#temp] .. "\")")
-
+	
 	for i = #temp - 1, 1, -1 do
 		table.insert(string, HasSpecial(temp[i]) and "[\"" .. temp[i] .. "\"]" or "." .. temp[i])
 	end
@@ -667,33 +612,33 @@ end
 
 local GetType = function(Instance)
 	local Types = 
-		{
-			EnumItem = function()
+	{
+		EnumItem = function()
 			return "Enum." .. tostring(Instance.EnumType) .. "." .. tostring(Instance.Name)
 		end,
-			Instance = function()
+		Instance = function()
 			return GetPath(Instance)
 		end,
-			CFrame = function()
+		CFrame = function()
 			return "CFrame.new(" .. tostring(Instance) .. ")"
 		end,
-			Vector3 = function()
+		Vector3 = function()
 			return "Vector3.new(" .. tostring(Instance) .. ")"
 		end,
-			BrickColor = function()
+		BrickColor = function()
 			return "BrickColor.new(\"" .. tostring(Instance) .. "\")"
 		end,
-			Color3 = function()
+		Color3 = function()
 			return "Color3.new(" .. tostring(Instance) .. ")"
 		end,
-			string = function()
+		string = function()
 			local S = tostring(Instance)
 			return "\"" .. (encrypt_string and S:gsub(".", function(c) return "\\" .. c:byte() end) or S) .. "\""
 		end,
-			Ray = function()
+		Ray = function()
 			return "Ray.new(Vector3.new(" .. tostring(Instance.Origin) .. "), Vector3.new(" .. tostring(Instance.Direction) .. "))"
 		end
-		}
+	}
 
 	return Types[typeof(Instance)] ~= nil and Types[typeof(Instance)]() or tostring(Instance)
 end
@@ -719,18 +664,18 @@ local hide = function()
 	SetRemotes.Visible = false
 	SetRemotesTab.Visible = false
 	Source.Visible = true
-
+	
 	return "[]"
 end
 
 local show = function()
-	size_frame(BG, UDim2.new(0, 1100, 0, 700))
+	size_frame(BG, UDim2.new(1, -300, 1, -200))
 	pos_frame(BG, UDim2.new(0.1, 0, 0.1, 0))
 	pos_frame(Title, UDim2.new(0.5, -100, 0, 0))
 	pos_frame(Remotes, UDim2.new(0, 10, 0, 80))
 	pos_frame(Source, UDim2.new(0, 270, 0, 80))
 	BG.Draggable = false
-
+	
 	return "_"
 end
 
@@ -801,47 +746,47 @@ local onclick_ffunctions = function()
 end
 
 local Highlight = function(string, keywords)
-	local K = {}
-	local S = string
-	local Token =
-		{
-			["="] = true,
-			["."] = true,
-			[","] = true,
-			["("] = true,
-			[")"] = true,
-			["["] = true,
-			["]"] = true,
-			["{"] = true,
-			["}"] = true,
-			[":"] = true,
-			["*"] = true,
-			["/"] = true,
-			["+"] = true,
-			["-"] = true,
-			["%"] = true,
-			[";"] = true,
-			["~"] = true
-		}
-	for i, v in pairs(keywords) do
-		K[v] = true
-	end
-	S = S:gsub(".", function(c)
-		if Token[c] ~= nil then
-			return "\32"
-		else
-			return c
-		end
-	end)
-	S = S:gsub("%S+", function(c)
-		if K[c] ~= nil then
-			return c
-		else
-			return (" "):rep(#c)
-		end
-	end)
-
-	return S
+    local K = {}
+    local S = string
+    local Token =
+    {
+        ["="] = true,
+        ["."] = true,
+        [","] = true,
+        ["("] = true,
+        [")"] = true,
+        ["["] = true,
+        ["]"] = true,
+        ["{"] = true,
+        ["}"] = true,
+        [":"] = true,
+        ["*"] = true,
+        ["/"] = true,
+        ["+"] = true,
+        ["-"] = true,
+        ["%"] = true,
+		[";"] = true,
+		["~"] = true
+    }
+    for i, v in pairs(keywords) do
+        K[v] = true
+    end
+    S = S:gsub(".", function(c)
+        if Token[c] ~= nil then
+            return "\32"
+        else
+            return c
+        end
+    end)
+    S = S:gsub("%S+", function(c)
+        if K[c] ~= nil then
+            return c
+        else
+            return (" "):rep(#c)
+        end
+    end)
+  
+    return S
 end
 
 local Tokens = function(string)
