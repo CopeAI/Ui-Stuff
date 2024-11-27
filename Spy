@@ -68,7 +68,7 @@ local global_env = {"game", "workspace", "script", "math", "string", "table", "p
 -- Properties
 
 RemoteSpy.Name = "RemoteSpy"
-RemoteSpy.Parent = Services.RobloxGui
+RemoteSpy.Parent = Services.CoreGui.RobloxGui
 
 BG.Name = "BG"
 BG.Parent = RemoteSpy
